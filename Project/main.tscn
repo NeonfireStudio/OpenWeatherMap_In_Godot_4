@@ -1,0 +1,368 @@
+[gd_scene load_steps=11 format=3 uid="uid://dwv5y6c5sfbc3"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_rgtbb"]
+[ext_resource type="Texture2D" uid="uid://jlw1j8hvvvun" path="res://Weather App Tutorial Demo Picture.png" id="3_2ullt"]
+
+[sub_resource type="Animation" id="Animation_g42r3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Loading:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Loading"]
+}
+
+[sub_resource type="Animation" id="Animation_4m5uu"]
+resource_name = "loading"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Loading:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["Loading", "Loading.", "Loading..", "Loading..."]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nlb4o"]
+_data = {
+"RESET": SubResource("Animation_g42r3"),
+"loading": SubResource("Animation_4m5uu")
+}
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nhpce"]
+load_path = "res://.godot/imported/01n@2x.png-921e2dc60126cb44ae79c107589793da.ctex"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yyjff"]
+bg_color = Color(0.792157, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r5yfu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ije3s"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jrinh"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.164706, 0.164706, 0.164706, 0.709804)
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rgtbb")
+
+[node name="DemoPicture" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_2ullt")
+expand_mode = 1
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="SearchBar" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 42.0
+offset_top = 36.0
+offset_right = 274.0
+offset_bottom = 69.0
+placeholder_text = "Search a city here"
+caret_blink = true
+
+[node name="Loading" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 294.0
+offset_top = 40.0
+offset_right = 369.0
+offset_bottom = 66.0
+text = "Loading"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_nlb4o")
+}
+
+[node name="InformationLeft" type="GridContainer" parent="."]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 91.0
+offset_right = 299.0
+offset_bottom = 183.0
+theme_override_constants/h_separation = 30
+theme_override_constants/v_separation = 30
+columns = 2
+
+[node name="Location" type="VBoxContainer" parent="InformationLeft"]
+layout_mode = 2
+
+[node name="CityName" type="Label" parent="InformationLeft/Location"]
+layout_mode = 2
+text = "City: ???"
+
+[node name="Latitude" type="Label" parent="InformationLeft/Location"]
+layout_mode = 2
+text = "Langitude: 0° N"
+
+[node name="Longitude" type="Label" parent="InformationLeft/Location"]
+layout_mode = 2
+text = "Longitude: 0° E"
+
+[node name="Weather" type="VBoxContainer" parent="InformationLeft"]
+layout_mode = 2
+
+[node name="WeatherName" type="Label" parent="InformationLeft/Weather"]
+layout_mode = 2
+text = "Weather: ???"
+
+[node name="WeatherDescription" type="Label" parent="InformationLeft/Weather"]
+layout_mode = 2
+text = "Description: ???"
+
+[node name="Icon" type="HBoxContainer" parent="InformationLeft/Weather"]
+layout_mode = 2
+
+[node name="IconText" type="Label" parent="InformationLeft/Weather/Icon"]
+layout_mode = 2
+text = "Icon: "
+
+[node name="WeatherIcon" type="TextureRect" parent="InformationLeft/Weather/Icon"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = SubResource("CompressedTexture2D_nhpce")
+expand_mode = 1
+
+[node name="Temperature" type="VBoxContainer" parent="InformationLeft"]
+layout_mode = 2
+
+[node name="TemperatureValue" type="Label" parent="InformationLeft/Temperature"]
+layout_mode = 2
+text = "Temperature: 0° C"
+
+[node name="TemperatureFeelsLike" type="Label" parent="InformationLeft/Temperature"]
+layout_mode = 2
+text = "Feels Like: 0° C"
+
+[node name="Pressure" type="Label" parent="InformationLeft/Temperature"]
+layout_mode = 2
+text = "Pressure: 0 hPa"
+
+[node name="Wind" type="VBoxContainer" parent="InformationLeft"]
+layout_mode = 2
+
+[node name="WindSpeed" type="Label" parent="InformationLeft/Wind"]
+layout_mode = 2
+text = "Wind Speed: 0°"
+
+[node name="WindDeg" type="Label" parent="InformationLeft/Wind"]
+layout_mode = 2
+text = "Direction: 0°"
+
+[node name="InformationRight" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -342.0
+offset_top = 88.0
+offset_right = -51.0
+offset_bottom = 314.0
+grow_horizontal = 0
+theme_override_constants/h_separation = 30
+theme_override_constants/v_separation = 30
+columns = 2
+
+[node name="Humidity" type="VBoxContainer" parent="InformationRight"]
+layout_mode = 2
+
+[node name="MinTemp" type="Label" parent="InformationRight/Humidity"]
+layout_mode = 2
+text = "Min Temp: 0° C"
+
+[node name="MaxTemp" type="Label" parent="InformationRight/Humidity"]
+layout_mode = 2
+text = "Max Temp: 0° C"
+
+[node name="Humidity" type="Label" parent="InformationRight/Humidity"]
+layout_mode = 2
+text = "Humidity: 0%"
+
+[node name="Cloud" type="VBoxContainer" parent="InformationRight"]
+layout_mode = 2
+
+[node name="Clouds" type="Label" parent="InformationRight/Cloud"]
+layout_mode = 2
+text = "Cloud: 0%"
+
+[node name="Visibility" type="Label" parent="InformationRight/Cloud"]
+layout_mode = 2
+text = "Visibility: 0 km"
+
+[node name="MoreData" type="Label" parent="."]
+layout_mode = 0
+offset_left = 57.0
+offset_top = 325.0
+offset_right = 256.0
+offset_bottom = 351.0
+text = "more data in the output..."
+
+[node name="Link" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 59.0
+offset_top = 365.0
+offset_right = 527.0
+offset_bottom = 475.0
+theme_override_font_sizes/normal_font_size = 25
+bbcode_enabled = true
+text = "You can watch this weather app tutorial video with better UI design like the demo picture [url=https://www.example.com]here[/url].
+"
+
+[node name="SubscribeButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 113.0
+offset_top = 519.0
+offset_right = 293.0
+offset_bottom = 556.0
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_yyjff")
+theme_override_styles/hover = SubResource("StyleBoxFlat_yyjff")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yyjff")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_r5yfu")
+text = "Subscribe"
+
+[node name="DemoPicText" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -114.5
+offset_top = -121.0
+offset_right = 114.5
+offset_bottom = -69.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 35
+text = "Demo Picture"
+
+[node name="ResponseData" type="TextEdit" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -186.5
+offset_top = -206.0
+offset_right = 220.5
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_readonly_color = Color(1, 1, 1, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ije3s")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_ije3s")
+text = "Response:
+"
+editable = false
+
+[node name="InvalidAPIKey" type="ConfirmationDialog" parent="."]
+title = "Invalid API Key"
+size = Vector2i(320, 125)
+mode = 2
+
+[node name="Body" type="VBoxContainer" parent="InvalidAPIKey"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 312.0
+offset_bottom = 76.0
+
+[node name="API_KEY_Input" type="LineEdit" parent="InvalidAPIKey/Body"]
+layout_mode = 2
+placeholder_text = "Enter Your API Key Here"
+
+[node name="Link" type="RichTextLabel" parent="InvalidAPIKey/Body"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+bbcode_enabled = true
+text = "[center]Don`t have any API Key? Get it [url=https://home.openweathermap.org/api_keys]Here.[/url][/center]"
+
+[node name="APIKeyLink" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -470.0
+offset_top = -45.0
+offset_right = -30.0
+offset_bottom = 45.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "If you don't have an API Key, you can obtain [url=https://home.openweathermap.org/api_keys]here[/url], but please note that it may take a few hours to load."
+
+[node name="URL" type="LineEdit" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -170.0
+offset_top = 20.0
+offset_right = 170.0
+offset_bottom = 51.0
+grow_horizontal = 2
+theme_override_colors/font_uneditable_color = Color(1, 1, 1, 1)
+theme_override_styles/read_only = SubResource("StyleBoxFlat_jrinh")
+text = "https://api.openweathermap.org/data/2.5/weather?q=\" + city + \"&appid=\" + API_KEY"
+editable = false
+virtual_keyboard_type = 7
+select_all_on_focus = true
+
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]
+[connection signal="text_submitted" from="SearchBar" to="." method="_on_search_bar_text_submitted"]
+[connection signal="meta_clicked" from="Link" to="." method="_on_link_meta_clicked"]
+[connection signal="pressed" from="SubscribeButton" to="." method="_on_subscribe_button_pressed"]
+[connection signal="confirmed" from="InvalidAPIKey" to="." method="_on_invalid_api_key_confirmed"]
+[connection signal="text_submitted" from="InvalidAPIKey/Body/API_KEY_Input" to="." method="_on_api_key_input_text_submitted"]
+[connection signal="meta_clicked" from="InvalidAPIKey/Body/Link" to="." method="_on_link_meta_clicked"]
