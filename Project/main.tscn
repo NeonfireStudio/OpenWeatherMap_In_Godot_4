@@ -348,9 +348,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -170.0
-offset_top = 20.0
+offset_top = 36.0
 offset_right = 170.0
-offset_bottom = 51.0
+offset_bottom = 67.0
 grow_horizontal = 2
 theme_override_colors/font_uneditable_color = Color(1, 1, 1, 1)
 theme_override_styles/read_only = SubResource("StyleBoxFlat_jrinh")
@@ -358,6 +358,19 @@ text = "https://api.openweathermap.org/data/2.5/weather?q=\" + city + \"&appid=\
 editable = false
 virtual_keyboard_type = 7
 select_all_on_focus = true
+
+[node name="URLText" type="Label" parent="URL"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -28.0
+offset_bottom = -33.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "URL"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]
 [connection signal="text_submitted" from="SearchBar" to="." method="_on_search_bar_text_submitted"]
