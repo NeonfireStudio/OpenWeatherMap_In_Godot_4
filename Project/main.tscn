@@ -251,7 +251,7 @@ offset_right = 527.0
 offset_bottom = 475.0
 theme_override_font_sizes/normal_font_size = 25
 bbcode_enabled = true
-text = "You can watch this weather app tutorial video with better UI design like the demo picture [url=https://www.example.com]here[/url].
+text = "You can watch this weather app tutorial video with better UI design like the demo picture [url=https://youtu.be/RvxLPOXMDXs]here[/url].
 "
 
 [node name="SubscribeButton" type="Button" parent="."]
@@ -366,3 +366,4 @@ select_all_on_focus = true
 [connection signal="confirmed" from="InvalidAPIKey" to="." method="_on_invalid_api_key_confirmed"]
 [connection signal="text_submitted" from="InvalidAPIKey/Body/API_KEY_Input" to="." method="_on_api_key_input_text_submitted"]
 [connection signal="meta_clicked" from="InvalidAPIKey/Body/Link" to="." method="_on_link_meta_clicked"]
+[connection signal="meta_clicked" from="APIKeyLink" to="." method="_on_link_meta_clicked"]
